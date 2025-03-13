@@ -7,7 +7,7 @@ A simple, type-safe integration for [JustCMS](https://justcms.co) in your Angula
 - **TypeScript support:** Fully typed structures for API responses.
 - **Angular Service:** All JustCMS API calls are encapsulated in one injectable service.
 - **Easy Integration:** Configure your API token and project ID via Angular's dependency injection.
-- **Flexible Endpoints:** Supports fetching categories, pages (with filtering and pagination), a page by its slug, and a menu by its ID.
+- **Flexible Endpoints:** Supports fetching categories, pages (with filtering and pagination), a page by its slug, a menu by its ID, a layout by its ID, and multiple layouts by their IDs.
 
 ## Installation
 
@@ -164,6 +164,22 @@ this.justCmsService.getMenuById('main-menu').subscribe(menu => {
   const isBlogPost = this.justCmsService.hasCategory(page, 'blog');
   ```
 
+#### getLayoutById(id: string)
+Fetches a single layout by its ID.
+```typescript
+this.justCmsService.getLayoutById('footer').subscribe(layout => {
+  // layout is of type Layout
+});
+```
+
+#### getLayoutsByIds(ids: string[])
+Fetches multiple layouts at once by specifying an array of layout IDs.
+```typescript
+this.justCmsService.getLayoutsByIds(['footer', 'header']).subscribe(layouts => {
+  // layouts is of type Layout[]
+});
+```
+
 ## API Endpoints Overview
 
 The service wraps the following JustCMS API endpoints:
@@ -172,5 +188,7 @@ The service wraps the following JustCMS API endpoints:
 - **Get Pages:** Retrieve pages with optional filtering (by category slug) and pagination.
 - **Get Page by Slug:** Retrieve detailed information about a specific page.
 - **Get Menu by ID:** Retrieve a menu and its items by its unique identifier.
+- **Get Layout by ID:** Retrieve detailed information about a single layout, including its items and metadata.
+- **Get Layouts by IDs:** Retrieve multiple layouts at once by specifying their IDs.
 
 For more details on each endpoint, refer to the [JustCMS Public API Documentation](https://justcms.co/api).

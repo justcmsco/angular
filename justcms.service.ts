@@ -155,6 +155,23 @@ export interface Menu {
 }
 
 /**
+ * Layouts
+ */
+export interface LayoutItem {
+  label: string
+  description: string
+  uid: string
+  type: 'text' | 'html' | 'boolean' | 'svg'
+  value: string | boolean
+}
+
+export interface Layout {
+  id: string
+  name: string
+  items: LayoutItem[]
+}
+
+/**
  * Page filters
  */
 export interface PageFilters {
@@ -303,5 +320,23 @@ export class JustCmsService {
    */
   hasCategory(page: PageDetail, categorySlug: string): boolean {
     return page.categories.map(category => category.slug).includes(categorySlug);
+  }
+
+  /**
+   * Retrieves a single layout by its ID.
+   *
+   * @param id The layout ID.
+   */
+  getLayoutById(id: string): Observable<Layout> {
+    return this.get<Layout>(`layouts/${id}`);
+  }
+
+  /**
+   * Retrieves multiple layouts by their IDs.
+   *
+   * @param ids Array of layout IDs (e.g., ['footer', 'header']).
+   */
+  getLayoutsByIds(ids: string[]): Observable<Layout[]> {
+    return this.get<Layout[]>(`layouts/${ids.join(';')}`);
   }
 }
